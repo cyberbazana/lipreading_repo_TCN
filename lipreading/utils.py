@@ -185,10 +185,10 @@ def update_logger_batch( args, logger, dset_loader, batch_idx, running_loss, run
     perc_epoch = 100. * batch_idx / (len(dset_loader)-1)
     logger.info(f"[{running_all:5.0f}/{len(dset_loader.dataset):5.0f} ({perc_epoch:.0f}%)]\tLoss: {running_loss / running_all:.4f}\tAcc:{running_corrects / running_all:.4f}\tCost time:{batch_time.val:1.3f} ({batch_time.avg:1.3f})s\tData time:{data_time.val:1.3f} ({data_time.avg:1.3f})\tInstances per second: {args.batch_size/batch_time.avg:.2f}")
 
-def get_save_folder( args):
+def get_save_folder(args):
     # create save and log folder
-    save_path = '{}/{}'.format( args.logging_dir, args.training_mode )
-    save_path += '/' + datetime.datetime.now().isoformat().split('.')[0]
+    save_path = '{}/{}'.format(args.logging_dir, args.training_mode)
+    save_path += '/' + datetime.datetime.now().isoformat().split('.')[0].replace(':', '-')
     if not os.path.isdir(save_path):
         os.makedirs(save_path)
     return save_path
